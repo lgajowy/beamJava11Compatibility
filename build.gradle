@@ -13,22 +13,9 @@ repositories {
 dependencies {
   compile group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.14.0'
   compile group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.14.0'
-  compile group: 'org.apache.beam', name: 'beam-sdks-java-extensions-google-cloud-platform-core', version: '2.14.0'
 }
 
 ext.moduleName = 'com.gajowy.beamJava11Compatibility'
-
-// this is required to have all jars in modulepath so that JPMS creates automatic modules for them
-// see: https://guides.gradle.org/building-java-9-modules/?_ga=2.239605319.517655380.1566393562-1295823704.1546624984#modify_the_code_compilejava_code_task_to_produce_a_module
-compileJava {
-  inputs.property("moduleName", moduleName)
-  doFirst {
-    options.compilerArgs = [
-            '--module-path', classpath.asPath,
-    ]
-    classpath = files()
-  }
-}
 
 jar {
   manifest {
